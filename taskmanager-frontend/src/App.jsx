@@ -8,7 +8,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
 
-  const API = "http://localhost:8080/api/tasks";
+  const API = "https://task-manager-production-523d.up.railway.app/api/tasks";
 
   const fetchTasks = async () => {
     try {
