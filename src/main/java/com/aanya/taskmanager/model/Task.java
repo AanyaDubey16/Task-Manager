@@ -15,11 +15,21 @@ public class Task {
 
     private boolean completed;
 
-    private String priority;   // High, Medium, Low
+    private String priority;
 
-    private String dueDate;    // Example: 2026-06-15
+    private String dueDate;
 
-    // Getters and Setters
+    private String completedDate;
+
+    // Assignment Features
+    private String sharedView;   // View name (e.g., Team Tasks)
+    private String accessType;   // Read Only / Edit
+    private String editedBy;     // Last edited by
+    private String completedBy;  // Completed by
+
+    // =========================
+    // Getters & Setters
+    // =========================
 
     public Long getId() {
         return id;
@@ -67,5 +77,45 @@ public class Task {
 
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public String getCompletedDate() {
+        return completedDate;
+    }
+
+    public void setCompletedDate(String completedDate) {
+        this.completedDate = completedDate;
+    }
+
+    public String getSharedView() {
+        return sharedView;
+    }
+
+    public void setSharedView(String sharedView) {
+        this.sharedView = sharedView;
+    }
+
+    public String getAccessType() {
+        return accessType;
+    }
+
+    public void setAccessType(String accessType) {
+        this.accessType = accessType;
+    }
+
+    public String getEditedBy() {
+        return editedBy;
+    }
+
+    public void setEditedBy(String editedBy) {
+        this.editedBy = editedBy;
+    }
+
+    public String getCompletedBy() {
+        return completedBy;
+    }
+
+    public void setCompletedBy(String completedBy) {
+        this.completedBy = completedBy;
     }
 }

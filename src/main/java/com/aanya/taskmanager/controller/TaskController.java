@@ -4,6 +4,7 @@ import com.aanya.taskmanager.model.Task;
 import com.aanya.taskmanager.repository.TaskRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -29,17 +30,55 @@ public class TaskController {
 
     @PostMapping
     public Task addTask(@RequestBody Task task) {
+
+        task.setCompleted(false);
+        task.setCompletedDate(null);
+
+        // Default values
+        task.setEditedBy("Aanya");
+        task.setCompletedBy("");
+        task.setSharedView("My Tasks");
+        task.setAccessType("Edit");
+
         return taskRepository.save(task);
     }
 
     @PutMapping("/{id}")
-    public Task updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
+    public Task updateTask(@PathVariable Long id,
+                           @RequestBody Task updatedTask) {
 
         Task task = taskRepository.findById(id).orElseThrow();
 
         task.setTitle(updatedTask.getTitle());
         task.setDescription(updatedTask.getDescription());
-        task.setCompleted(updatedTask.isCompleted());
+        task.setPriority(updatedTask.getPriority());
+        task.setDueDate(updatedTask.getDueDate());
+
+        task.setSharedView(updatedTask.getSharedView());
+        task.setAccessType(updatedTask.getAccessType());
+
+        // Every update stores who edited it
+        task.setEditedBy("Aanya");
+
+        // Complete Task
+        if (updatedTask.isCompleted() && !task.isCompleted()) {
+
+            task.setCompleted(true);
+
+            task.setCompletedDate(LocalDate.now().toString());
+
+            task.setCompletedBy("Aanya");
+        }
+
+        // Undo
+        else if (!updatedTask.isCompleted()) {
+
+            task.setCompleted(false);
+
+            task.setCompletedDate(null);
+
+            task.setCompletedBy("");
+        }
 
         return taskRepository.save(task);
     }
